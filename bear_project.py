@@ -1,7 +1,7 @@
-def get_func(a):
-    a=21
+def get_func(chislo):
     print(a)
-    b=15
     c=a+b
     print(c)
-get_func()
+a=21
+b=13
+get_func(a)
