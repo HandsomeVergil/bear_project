@@ -10,7 +10,7 @@ def index():
 @my_flask_app.route('/main')
 def api_acces():
     result=requests.get('https://search-maps.yandex.ru/v1/',params={'apikey':'4ad3e4de-10fa-4349-b95f-d4bf6e5524c2','text':'Пивная','lang':'ru_RU',
-    	'bbox':'36.83,55.67~38.24,55.91',
+    	'bbox':'36.83,55.50~38.24,55.91',
     	'results':'420'
     	#'ll':'37.618920,55.756994',
     	#'spn':'0.552069,0.400552'
@@ -35,6 +35,7 @@ def api_acces():
          })
     	print(name,x,y)
     	_id+=1
+    print(len(d_result['features']))
 
     #return render_template('coor_name.html', my_list=my_list)
     #return jsonify(d_result)
@@ -44,6 +45,28 @@ def api_acces():
 @my_flask_app.route('/coor_name')
 def coor_name():
     return render_template('coor_name.html' )
+
+
+@my_flask_app.route('/barlist')
+def bar_list():
+    barlist=[]
+    result=requests.get('https://search-maps.yandex.ru/v1/',params={'apikey':'4ad3e4de-10fa-4349-b95f-d4bf6e5524c2','text':'Пивная','lang':'ru_RU',
+        'bbox':'36.83,55.50~38.24,55.91',
+        'results':'420'
+        #'ll':'37.618920,55.756994',
+        #'spn':'0.552069,0.400552'
+        })
+    #print(result.text.encode('utf-8'))
+    d_result=result.json()
+    for geom in d_result['features']:
+        geometry=geom['geometry']
+        coordinates=geometry['coordinates']
+        x,y=coordinates
+        #print(x,',',y)
+        name=geom['properties']['name']
+        barlist.append(name)
+
+    return render_template('barlist.html', barlist=barlist)
 
 
 if __name__=='__main__':
