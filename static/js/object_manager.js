@@ -19,8 +19,12 @@ function init () {
 
     // Чтобы задать опции одиночным объектам и кластерам,
     // обратимся к дочерним коллекциям ObjectManager.
-    objectManager.objects.options.set('preset', 'islands#greenDotIcon');
-    objectManager.clusters.options.set('preset', 'islands#greenClusterIcons');
+    //objectManager.objects.options.set('preset', 'islands#greenDotIcon');
+    objectManager.objects.options.set('iconLayout', 'default#image');
+    objectManager.objects.options.set('iconImageHref', 'static/img/Beer_icon.png');
+    objectManager.objects.options.set('iconImageSize', [35, 35]);
+    objectManager.clusters.options.set('iconLayout', 'default#image');
+    objectManager.clusters.options.set('iconImageHref', 'static/img/Beer_icon.png');
     myMap.geoObjects.add(objectManager);
 
     $.ajax({
@@ -36,7 +40,7 @@ function init () {
         // Красным цветом пометим положение, вычисленное через ip.
         result.geoObjects.options.set('preset', 'islands#redCircleIcon');
         result.geoObjects.get(0).properties.set({
-            balloonContentBody: 'Мое местоположение'
+            balloonContentBody:  'Центр'
         });
         myMap.geoObjects.add(result.geoObjects);
     });
@@ -50,4 +54,19 @@ function init () {
         result.geoObjects.options.set('preset', 'islands#blueCircleIcon');
         myMap.geoObjects.add(result.geoObjects);
     });
+
+    res.geoObjects.each(function (geoObject) {
+                        geoObject.options.set({
+                            
+                            preset : 'twirl#trainIcon'
+                            
+                            , iconImageHref: 'static/img/Beer_icon.png' // картинка иконки
+                            , iconImageSize: [30, 42] // размеры картинки
+                            , iconImageOffset: [-3, -42] // смещение картинки
+                            
+                        });
+                    });
+
 }
+
+

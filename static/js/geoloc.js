@@ -32,4 +32,5 @@ function init() {
         result.geoObjects.options.set('preset', 'islands#blueCircleIcon');
         myMap.geoObjects.add(result.geoObjects);
     });
+    
 }

@@ -68,6 +68,11 @@ def bar_list():
 
     return render_template('barlist.html', barlist=barlist)
 
+@my_flask_app.route('/login/', methods=['POST'])
+def login():
+    return render_template('login.html', email=request.form.get('email'),password=request.form.get('password'))
+
+
 
 if __name__=='__main__':
     my_flask_app.run(debug=True)
